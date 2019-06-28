@@ -7,8 +7,8 @@
 #define uint8_t unsigned char
 
 #define OUT_A P10
-#define OUT_B P11
-#define OUT_C P12
+#define OUT_B P12
+#define OUT_C P14
 
 #define CTL_V (~(P3 & 0x7) & 0x7)
 #define CTL_A !P33
@@ -39,11 +39,11 @@ void timerInit() {
 }
 
 void timerInterrupt() interrupt 1 using 1 {
-	OUT_A = (cntA < posA);
+	OUT_A = (cntA >= posA);
 	cntA = (cntA < CNT_MAX ? cntA + 1 : 0);
-	OUT_B = (cntB < posB);
+	OUT_B = (cntB >= posB);
 	cntB = (cntB < CNT_MAX ? cntB + 1 : 0);
-	OUT_C = (cntC < posC);
+	OUT_C = (cntC >= posC);
 	cntC = (cntC < CNT_MAX ? cntC + 1 : 0);
 }
 
